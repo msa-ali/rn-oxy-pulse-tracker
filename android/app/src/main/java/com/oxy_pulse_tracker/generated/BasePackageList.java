@@ -1,4 +1,4 @@
-package com.oxy_pulse_tracker.generated;
+package com.altamashali.oxypulsetracker.generated;
 
 import java.util.Arrays;
 import java.util.List;

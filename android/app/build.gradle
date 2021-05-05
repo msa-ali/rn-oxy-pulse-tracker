@@ -132,7 +132,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.oxy_pulse_tracker"
+        applicationId "com.altamashali.oxypulsetracker"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

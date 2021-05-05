@@ -1,4 +1,4 @@
-package com.oxy_pulse_tracker;
+package com.altamashali.oxypulsetracker;
 
 import com.facebook.react.ReactActivity;
 
