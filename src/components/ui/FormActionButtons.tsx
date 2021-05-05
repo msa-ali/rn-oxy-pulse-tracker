@@ -35,6 +35,7 @@ const style = StyleSheet.create({
     justifyContent: 'space-between',
     alignContent: 'center',
     marginHorizontal: 10,
+    marginTop: 10,
   },
   button: {
     color: 'rgb(93, 45, 150)',

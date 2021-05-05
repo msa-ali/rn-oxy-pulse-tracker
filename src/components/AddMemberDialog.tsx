@@ -178,7 +178,7 @@ const style = StyleSheet.create({
     fontSize: 12,
     marginLeft: 10,
   },
-  picker: {height: 50, width: 200, marginBottom: 10},
+  picker: {height: 50, width: 200},
   relationTextInput: {marginBottom: 20},
 });
 

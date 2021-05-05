@@ -5,7 +5,7 @@ import {
   MemberStat,
 } from '../models/member.interface';
 import uuid from 'react-native-uuid';
-import moment from 'moment';
+import dayjs from 'dayjs';
 
 export const getNewMember = (
   name: string,
@@ -25,8 +25,8 @@ export const getFormattedTableData = (stats: Array<MemberStat> = []) => {
   return stats
     .map(stat => ({
       ...stat,
-      date: moment(stat.timestamp).format('DD/MM/YYYY'),
-      time: moment(stat.timestamp).format('hh:mm A'),
+      date: dayjs(stat.timestamp).format('DD/MM/YYYY'),
+      time: dayjs(stat.timestamp).format('hh:mm A'),
     }))
     .map(stat => [
       stat.date,

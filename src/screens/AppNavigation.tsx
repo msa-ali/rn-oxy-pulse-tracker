@@ -27,7 +27,6 @@ const AppNavigation = () => {
       screenOptions={{
         headerTitle: 'Oxy-Pulse Tracker',
         headerTitleStyle: {color: 'rgb(93, 45, 150)'},
-        headerStatusBarHeight: headerStatusBarHeight,
         headerTransparent: true,
         headerStyle: {backgroundColor: 'transparent'},
       }}>

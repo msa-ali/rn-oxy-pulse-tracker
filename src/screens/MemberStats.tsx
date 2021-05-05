@@ -29,8 +29,8 @@ const MemberStatsScreen: NavStatelessComponent = () => {
   const navigation = useNavigation();
   const stateRef = React.useRef<OxyPulseDataType>();
   const memberProp: OxyPulseDataType = route?.params?.member;
-  const member_id: string = memberProp?.id;
-  const statsProps: Array<MemberStat> | [] = memberProp?.stat;
+  const member_id: string = memberProp?.id as string;
+  const statsProps: Array<MemberStat> | [] = memberProp?.stat as Array<MemberStat>;
   const [member, setMember] = React.useState(memberProp as OxyPulseDataType);
   const [stats, setStats] = React.useState(statsProps);
   stateRef.current = member;
@@ -132,11 +132,10 @@ const MemberStatsScreen: NavStatelessComponent = () => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 10,
     width: '100%',
     flex: 1,
     padding: 16,
-    paddingTop: 100,
+    paddingTop: 70,
     backgroundColor: '#fff',
   },
   cell: {
