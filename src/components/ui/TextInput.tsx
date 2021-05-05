@@ -29,17 +29,20 @@ const TextInputComponent = ({
       returnKeyType="done"
       returnKeyLabel="Done"
       error={error}
-      style={styles.backgroundColor}
+      style={styles.textInput}
       mode="flat"
       keyboardType={keyboardType}
       value={value}
       onChangeText={text => onChangeText(text)}
+
     />
   );
 };
 
 const styles = StyleSheet.create({
-  backgroundColor: 'white' as any,
+  textInput: {
+    backgroundColor: '#fff',
+  }
 });
 
 export default TextInputComponent;

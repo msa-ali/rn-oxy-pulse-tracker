@@ -27,4 +27,4 @@ export interface MemberStat {
 
 export type OxyPulseDataType = Member & {
   stat: Array<MemberStat> | [];
-};
+} | null;

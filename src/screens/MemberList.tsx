@@ -87,7 +87,7 @@ const MemberListScreen = () => {
       .finally(() => {
         setAddMemberDialogVisible(false);
       });
-  }, [hideToast, setErrorToast]);
+  }, []);
 
   useEffect(() => {
     getAllMembers();

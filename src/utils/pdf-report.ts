@@ -1,7 +1,7 @@
-import RNHTMLtoPDF from 'react-native-html-to-pdf';
-import {Share} from 'react-native';
-import {OxyPulseDataType} from '../models/member.interface';
-import {getFormattedTableData} from './member.util';
+import * as Print from 'expo-print';
+import * as Sharing from "expo-sharing";
+import { OxyPulseDataType } from '../models/member.interface';
+import { getFormattedTableData } from './member.util';
 
 const generateHTML = (member: OxyPulseDataType) => {
   const tableData = getFormattedTableData(member?.stat);
@@ -15,14 +15,11 @@ const generateHTML = (member: OxyPulseDataType) => {
       border-collapse: collapse;
       width: 100%;
     }
-
     #observations td, #observations th {
       border: 1px solid #ddd;
       padding: 8px;
     }
-
     #observations tr:nth-child(even){background-color: #f2f2f2;}
-
     #observations th {
       padding-top: 12px;
       padding-bottom: 12px;
@@ -31,11 +28,9 @@ const generateHTML = (member: OxyPulseDataType) => {
       color: white;
       margin-bottom: 20px;
     }
-
     #observations td {
       text-align: center;
     }
-
     .footer {
       position: fixed;
       left: 0;
@@ -45,11 +40,9 @@ const generateHTML = (member: OxyPulseDataType) => {
       color: white;
       text-align: center;
     }
-
     #copyright > p {
       color: grey
     }
-
     .center {
       margin: auto;
       width: 100%;
@@ -78,18 +71,16 @@ const generateHTML = (member: OxyPulseDataType) => {
         <th>Pulse Rate(bpm)</th>
         <th>Temperature(&deg;F)</th>
       </tr>
-      ${tableData
-        ?.map(data => {
-          const [date, time, oxy_sat, pulse_rate, temperature] = data;
-          return `<tr>
+      ${tableData?.map(data => {
+    const [date, time, oxy_sat, pulse_rate, temperature] = data;
+    return `<tr>
         <td>${date}</td>
         <td>${time}</td>
-        <td>${oxy_sat || '-'}</td>
-        <td>${pulse_rate || '-'}</td>
-        <td>${temperature || '-'}</td>
+        <td>${oxy_sat || "-"}</td>
+        <td>${pulse_rate || "-"}</td>
+        <td>${temperature || "-"}</td>
       </tr>`;
-        })
-        ?.join('\n')}
+  })?.join("\n")}
     </table>
     </body>
     </html>
@@ -98,20 +89,12 @@ const generateHTML = (member: OxyPulseDataType) => {
 
 export const createPDF = async (member: OxyPulseDataType) => {
   const html = generateHTML(member);
-  const options: RNHTMLtoPDF.Options = {
+  const file = await Print.printToFileAsync({
     html,
-    fileName: `${member?.name}-${Date.now()}`,
-    directory: 'Reports',
-  };
-  const file = await RNHTMLtoPDF.convert(options);
+  });
   return sharePDF(file);
 };
 
-const sharePDF = (file: RNHTMLtoPDF.Pdf) => {
-  if (file) {
-    Share.share({
-      title: 'Download Observations PDF',
-      url: file?.filePath as string,
-    });
-  }
+const sharePDF = async (file: Print.FilePrintResult) => {
+  Sharing.shareAsync(file.uri as string);
 };

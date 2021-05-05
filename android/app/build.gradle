@@ -1,4 +1,5 @@
 apply plugin: "com.android.application"
+apply from: '../../node_modules/react-native-unimodules/gradle.groovy'
 
 import com.android.build.OutputFile
 
@@ -96,7 +97,7 @@ def enableSeparateBuildPerCPUArchitecture = false
 /**
  * Run Proguard to shrink the Java bytecode in release builds.
  */
-def enableProguardInReleaseBuilds = false
+def enableProguardInReleaseBuilds = true
 
 /**
  * The preferred build flavor of JavaScriptCore.
@@ -189,6 +190,24 @@ dependencies {
     implementation "com.facebook.react:react-native:+"  // From node_modules
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
+
+    addUnimodulesDependencies([
+        exclude: [
+            'expo-constants',
+            'expo-file-system',
+            'expo-image-loader',
+            'expo-permissions',
+            'unimodules-face-detector-interface',
+            'unimodules-file-system-interface',
+            'unimodules-font-interface',
+            'unimodules-image-loader-interface',
+            'unimodules-permissions-interface',
+            'unimodules-sensors-interface',
+            'unimodules-task-manager-interface',
+            'unimodules-barcode-scanner-interface',
+            'unimodules-camera-interface',
+            ]
+    ])
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
       exclude group:'com.facebook.fbjni'
