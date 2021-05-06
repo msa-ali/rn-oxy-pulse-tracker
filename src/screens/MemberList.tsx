@@ -17,6 +17,7 @@ import {getNewMember} from '../utils/member.util';
 import Toast from '../components/ui/toast';
 import useToast from '../hooks/useToast';
 import DeleteMemberConfirmationDialog from '../components/DeleteMemberConfirmationDialog';
+import { DEFAULT_LIGHT_COLOR } from '../data/constants';
 
 const MemberListScreen = () => {
   const {useState, useEffect, useCallback} = React;
@@ -165,7 +166,7 @@ const MemberListScreen = () => {
       ) : (
         <View style={styles.noDataView}>
           {Array.isArray(members) ? (
-            <Paragraph>No Member found !</Paragraph>
+            <Paragraph style={styles.noDataText}>Click Below To Add New Member</Paragraph>
           ) : (
             <ActivityIndicator color="rgb(93, 45, 150)" />
           )}
@@ -209,6 +210,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgb(93, 45, 150)',
   },
   noDataView: {flex: 1, justifyContent: 'center', alignItems: 'center'},
+
+  noDataText: {color: DEFAULT_LIGHT_COLOR, fontSize: 15}
 });
 
 export default MemberListScreen;
