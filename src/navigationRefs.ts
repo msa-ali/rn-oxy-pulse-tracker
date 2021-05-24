@@ -1,12 +1,12 @@
-import {CommonActions} from '@react-navigation/native';
-let navigator: any;
+import {CommonActions, NavigationContainerRef} from '@react-navigation/native';
+let navigator: NavigationContainerRef | null;
 
-export const setNavigator = (nav: any) => {
+export const setNavigator = (nav: NavigationContainerRef | null) => {
   navigator = nav;
 };
 
 export const navigate = (routeName: any, params?: any) => {
-  navigator.dispatch(
+  navigator && navigator.dispatch(
     CommonActions.navigate({
       name: routeName,
       params,
