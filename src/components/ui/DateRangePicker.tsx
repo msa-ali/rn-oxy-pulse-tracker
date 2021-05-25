@@ -25,8 +25,9 @@ const DateRangePicker = ({title, startDate, onStartDateChange, endDate, onEndDat
         >
         <View>
             <View style={{ marginVertical: 10 }}>
-                <Caption style={styles.dateCaption}>Start Date</Caption>
+                {/* <Caption style={styles.dateCaption}>Start Date</Caption> */}
                 <DateTimePicker
+                    label="Start Date"
                     value={startDate}
                     minimumDate={minStartDate}
                     mode="date"
@@ -35,8 +36,9 @@ const DateRangePicker = ({title, startDate, onStartDateChange, endDate, onEndDat
                 />
             </View>
             <View>
-                <Caption style={styles.dateCaption}>End Date</Caption>
+                {/* <Caption style={styles.dateCaption}>End Date</Caption> */}
                 <DateTimePicker
+                    label="End Date"
                     value={endDate}
                     onChange={(...args) => console.log(args)}
                     minimumDate={minEndDate}

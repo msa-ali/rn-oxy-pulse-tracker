@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { Dimensions, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createDrawerNavigator,  } from '@react-navigation/drawer';
 import { NavigationOptions } from '../data/navigation-options';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -9,6 +9,7 @@ import { ActivityIndicator } from 'react-native-paper';
 import Schedule from './Schedule';
 import { DrawerContent } from '../components/DrawerContent';
 import { DEFAULT_COLOR } from '../data/constants';
+import { useNavigation } from '@react-navigation/native';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -17,7 +18,6 @@ const ScheduleStack = createStackNavigator();
 const AppNavigation = () => {
   const [initialRoute, setInitialRoute] = React.useState('');
   const { memberList, memberStats, onboarding } = NavigationOptions;
-  const headerStatusBarHeight = initialRoute === onboarding.name ? 30 : 45;
   React.useEffect(() => {
     AsyncStorage.getItem('hasOnboarded').then(value => {
       if (value) {
@@ -48,9 +48,6 @@ const AppNavigation = () => {
       <Stack.Screen
         name={memberList.name}
         component={memberList.component}
-        options={{
-          headerLeft: () => null,
-        }}
       />
       <Stack.Screen
         name={memberStats.name}

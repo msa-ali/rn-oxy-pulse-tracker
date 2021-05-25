@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {View, FlatList, StyleSheet} from 'react-native';
-import {useHeaderHeight} from '@react-navigation/stack';
+import {StackNavigationProp, useHeaderHeight} from '@react-navigation/stack';
 import {useNavigation} from '@react-navigation/native';
 import {ActivityIndicator, List, Paragraph} from 'react-native-paper';
 import {Divider, FAB} from 'react-native-paper';
@@ -17,9 +17,10 @@ import {getNewMember} from '../utils/member.util';
 import Toast from '../components/ui/toast';
 import useToast from '../hooks/useToast';
 import DeleteMemberConfirmationDialog from '../components/DeleteMemberConfirmationDialog';
-import { DEFAULT_LIGHT_COLOR } from '../data/constants';
+import { DEFAULT_COLOR, DEFAULT_LIGHT_COLOR } from '../data/constants';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const MemberListScreen = () => {
+const MemberListScreen = ({navigation}: any) => {
   const {useState, useEffect, useCallback} = React;
   const [addMemberDialogVisible, setAddMemberDialogVisible] = useState(false);
   const [deleteMemberDialogVisible, setDeleteMemberDialogVisible] = useState(
@@ -142,11 +143,27 @@ const MemberListScreen = () => {
 
   const viewStyle = {flex: 1, marginTop: headerHeight + 5};
 
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerTitle: 'Oxy Pulse Tracker',
+      headerTransparent: true,
+      headerStyle: {backgroundColor: 'transparent'},
+      headerLeft: () => <Icon name="menu" size={28} color={DEFAULT_COLOR} onPress={
+          () => {
+            navigation?.toggleDrawer();
+          }
+        }/>,
+      headerLeftContainerStyle: {
+          marginLeft: 10
+        }
+    });
+  }, []);
+
   return (
     <View style={viewStyle}>
       {members && members.length ? (
         <>
-          <List.Subheader>Family Members</List.Subheader>
+          <List.Subheader>Members</List.Subheader>
           <FlatList
             data={members}
             keyExtractor={item => item.id.toString()}

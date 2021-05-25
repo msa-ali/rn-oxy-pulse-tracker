@@ -109,7 +109,7 @@ const AddMemberDialog = ({
 
   return (
     <DialogComponent
-      title="Add Family Member"
+      title="Add Member"
       visible={visible}
       onDismiss={onHideDialog}>
       {/* NAME TEXT INPUT */}

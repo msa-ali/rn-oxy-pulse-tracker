@@ -58,7 +58,7 @@ const Schedule = () => {
     const onAddTime = () => {
         const time_string = dayjs(selectedTimeRef.current).toISOString();
         const timeInputs = timeInputsRef.current as Array<string>;
-        if (!timeInputs?.includes(time_string)) {
+        if (!timeInputs?.includes(time_string) || true) {
             // let sortedTimeList = [...timeInputs, time_string]
             //     .sort((time1, time2) =>
             //         new Date(time1).getTime() - new Date(time2).getTime()
@@ -67,14 +67,14 @@ const Schedule = () => {
         }
     };
 
-    const swippableTime = (time: string) => {
+    const swippableTime = (time: string, index: number) => {
         return (
-            <View style={{ borderWidth: 1, borderColor: "#E0E0E0", marginHorizontal: 10, }}>
+            <View style={{ borderWidth: 1, borderColor: "#E0E0E0", margin: 10, }}>
                 <Swipeable
                     friction={2}
-                    renderLeftActions={() => deleteAction(true)}
+                    renderLeftActions={(progress, dragX) => deleteAction(true)}
                     renderRightActions={() => deleteAction(false)}
-                    onSwipeableLeftOpen={() => Alert.prompt('LEFT SWIPE')}
+                    onSwipeableLeftOpen={() => onDeleteTime(index)}
                     onSwipeableRightOpen={() => Alert.prompt('Right SWIPE')}
                 >
                     <Card elevation={2}>
@@ -83,6 +83,11 @@ const Schedule = () => {
                 </Swipeable>
             </View>
         );
+    };
+
+    const onDeleteTime = (index: number) => {
+        console.log(index);
+        setTimeInputs(timeInputs.filter((_,i) => i !== index));
     };
 
     const deleteAction = (left: boolean) => {
@@ -141,7 +146,7 @@ const Schedule = () => {
                     onEndDateChange={onEndDateChange}
                 />
             </View>}
-            <View>
+            <View style={{marginTop: 20}}>
                 <CollapsibleField
                     title="Pick Time"
                     description="You can add multiple instances of time to get notifications"
@@ -158,12 +163,12 @@ const Schedule = () => {
     );
 
     return (
-        <View style={{ flex: 1 }}>
-            <View style={{ backgroundColor: "white", flex: 1, paddingBottom: 20 }}>
+        <View style={{ flex: 1, backgroundColor: "white" }}>
+            <View style={{ backgroundColor: "white", flex: 1, marginBottom: 30 }}>
                 <FlatList
-                    data={timeInputsRef.current}
+                    data={timeInputs}
                     keyExtractor={(item, index) => `${item}_${index}`}
-                    renderItem={(data) => swippableTime(data.item)}
+                    renderItem={(data) => swippableTime(data.item, data.index)}
                     nestedScrollEnabled={true}
                     ListHeaderComponent={header()}
                     showsVerticalScrollIndicator={false}
